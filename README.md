@@ -14,6 +14,7 @@ _The engine of the [RenderCV App](https://rendercv.com)_
 ### Changes from main rendercv repo
 
 Since this fork does not change the original library, in order to run the changes, you must run "python -m [rendercv command]".
+
 This fork makes the following changes to the original rendercv repo:
 - Allows users to specify where they wish to add columns by specifying || as delimiter in the YAML file. # columns is the limit.
 - Allows users to change text enclosed in "==" to a specified color, specified by "custom" in the YAML file.
