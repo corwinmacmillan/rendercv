@@ -11,7 +11,7 @@ cv:
       username: john.doe
   sections:
     welcome_to_RenderCV!:
-      - '[RenderCV](https://rendercv.com) is a Typst-based CV framework designed for academics and engineers, with Markdown syntax support.'
+      - '[RenderCV](https://rendercv.com) is a ==Typst-based== CV framework designed for academics and engineers, with **Markdown syntax** support.'
       - Each section title is arbitrary. Each section contains a list of entries, and there are 7 different entry types to choose from.
     education:
       - institution: Stanford University
@@ -100,8 +100,10 @@ cv:
         journal:
         date: 2004-01
     extracurricular_activities:
-      - bullet: 'There are 7 unique entry types in RenderCV: *BulletEntry*, *TextEntry*, *EducationEntry*, *ExperienceEntry*, *NormalEntry*, *PublicationEntry*, and *OneLineEntry*.'
-      - bullet: Each entry type has a different structure and layout. This document demonstrates all of them.
+      - bullets:
+            - 'There are 7 unique entry types in RenderCV: *BulletEntry*, *TextEntry*, *EducationEntry*, *ExperienceEntry*, *NormalEntry*, *PublicationEntry*, and *OneLineEntry*.'
+      - bullets:
+            - Each entry type has a different structure and layout. This document demonstrates all of them.
     numbered_entries:
       - number: This is a numbered entry.
       - number: This is another numbered entry.
@@ -127,6 +129,7 @@ design:
     section_titles: rgb(0, 79, 144)
     links: rgb(0, 79, 144)
     last_updated_date_and_page_numbering: rgb(128, 128, 128)
+    custom: rgb(0, 100, 20)
   text:
     font_family: Source Sans 3
     font_size: 10pt
@@ -181,43 +184,26 @@ design:
     one_line_entry:
       template: '**LABEL:** DETAILS'
     education_entry:
-      main_column_first_row_template: '**INSTITUTION**, AREA'
-      degree_column_template: '**DEGREE**'
-      degree_column_width: 1cm
-      main_column_second_row_template: |-
+      first_row_template: "DEGREE || **INSTITUTION**, AREA || LOCATION\nDATE"
+      first_column_width: 1cm
+      second_row_template: |-
         SUMMARY
         HIGHLIGHTS
-      date_and_location_column_template: |-
-        LOCATION
-        DATE
     normal_entry:
-      main_column_first_row_template: '**NAME**'
-      main_column_second_row_template: |-
+      first_row_template: '**NAME** || LOCATION\nDATE'
+      second_row_template: |-
         SUMMARY
         HIGHLIGHTS
-      date_and_location_column_template: |-
-        LOCATION
-        DATE
     experience_entry:
-      main_column_first_row_template: '**COMPANY**, POSITION'
-      main_column_second_row_template: |-
+      first_row_template: '**COMPANY**, POSITION || LOCATION\nDATE'
+      second_row_template: |-
         SUMMARY
         HIGHLIGHTS
-      date_and_location_column_template: |-
-        LOCATION
-        DATE
     publication_entry:
-      main_column_first_row_template: '**TITLE**'
-      main_column_second_row_template: |-
+      first_row_template: '**TITLE** || DATE'
+      second_row_template: |-
         AUTHORS
         URL (JOURNAL)
-      main_column_second_row_without_journal_template: |-
-        AUTHORS
-        URL
-      main_column_second_row_without_url_template: |-
-        AUTHORS
-        JOURNAL
-      date_and_location_column_template: DATE
 locale:
   language: en
   phone_number_format: national

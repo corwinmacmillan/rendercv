@@ -1,4 +1,3 @@
-
 #import "@preview/fontawesome:0.5.0": fa-icon
 
 #let name = "None"
@@ -12,6 +11,7 @@
 #let design-colors-name = rgb(0, 79, 144)
 #let design-colors-connections = rgb(0, 79, 144)
 #let design-colors-links = rgb(0, 79, 144)
+#let design-colors-custom = rgb(0, 100, 20)
 #let design-section-titles-font-family = "Source Sans 3"
 #let design-section-titles-bold = true
 #let design-section-titles-line-thickness = 0.5pt
@@ -58,7 +58,6 @@
 #let design-page-show-last-updated-date = true
 #let design-page-show-page-numbering = true
 #let design-links-underline = false
-#let design-entry-types-education-entry-degree-column-width = 1cm
 #let date = datetime.today()
 
 // Metadata:
@@ -142,6 +141,7 @@
     body-indent: design-highlights-horizontal-space-between-bullet-and-highlights,
   )
 }
+
 #let three-col(
   left-column-width: 1fr,
   middle-column-width: 1fr,

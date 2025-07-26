@@ -120,13 +120,12 @@ class TypstFile(TemplatedFile):
         """
         # All the template field names:
         all_template_names = [
-            "main_column_first_row_template",
-            "main_column_second_row_template",
-            "main_column_second_row_without_url_template",
-            "main_column_second_row_without_journal_template",
-            "date_and_location_column_template",
+            "first_row_template",
+            "second_row_template",
+            "third_row_template",
+            "first_column_width",
             "template",
-            "degree_column_template",
+            "last_column_width",
         ]
 
         # All the placeholders used in the templates:
@@ -410,16 +409,20 @@ def input_template_to_typst(
     # Replace all multiple \n with a double \n:
     output = re.sub(r"\n+", r"\n\n", output)
 
-    # Strip whitespace
-    output = output.strip()
-
     # Strip non-alphanumeric, non-typst characters from the beginning and end of the
     # string. For example, when location is not given in a template like this:
     # "NAME -- LOCATION", "NAME -- " should become "NAME".
-    output = re.sub(r"^[^\w\s#\[\]\n\(\)]*", "", output)
-    output = re.sub(r"[^\w\s#\[\]\n\(\)]*$", "", output)
+    def clean(s):
+        s = re.sub(r"^[^\w\s#\[\]\n\(\)]*", "", s)
+        s = re.sub(r"[^\w\s#\[\]\n\(\)]*$", "", s)
 
-    return output  # noqa: RET504
+        s = re.sub(r"\(\)", "", s)
+        return s  # noqa: RET504
+
+    parts = output.split("||")
+    cleaned_parts = [clean(part.strip()) for part in parts]
+
+    return " || ".join(cleaned_parts)
 
 
 @overload
@@ -640,6 +643,15 @@ def markdown_to_typst(markdown_string: str) -> str:
 
             markdown_string = markdown_string.replace(old_italic_text, new_italic_text)
 
+    # convert colors
+    colors = re.findall(r"==(.+?)==", markdown_string)
+    if colors is not None:
+        for color in colors:
+            old_color_string = f"=={color}=="
+            new_color_string = f'#text(fill: design-colors-custom)[{color}]'
+
+            markdown_string = markdown_string.replace(old_color_string, new_color_string)
+
     # Revert normal asterisks then convert them to Typst's asterisks
     markdown_string = markdown_string.replace(ONE_STAR, "*")
 
@@ -745,13 +757,21 @@ def replace_placeholders_with_actual_values(
         The string with actual values.
     """
     for placeholder, value in placeholders.items():
-        if value:
-            text = text.replace(placeholder, str(value))
+        # Use regex only for whole-word placeholders like DATE, NAME, etc.
+        if re.fullmatch(r"\w+", placeholder):  # e.g., "DATE", "NAME"
+            pattern = rf"\b{placeholder}\b"
+            text = re.sub(pattern, str(value or ""), text)
         else:
-            text = text.replace(placeholder, "")
-
+            # Fall back to literal replacement if placeholder is not a word (e.g., "{name}")
+            text = text.replace(placeholder, str(value or ""))
     return text
 
+def split_and_trim(value: str, delimiter="||"):
+    if isinstance(value, str):
+        split = [part.strip() for part in value.split(delimiter)]
+        if len(split) < 4:
+            return split
+    return value
 
 class Jinja2Environment:
     instance: "Jinja2Environment"
@@ -784,6 +804,7 @@ class Jinja2Environment:
             environment.comment_end_string = "#))"
 
             # add custom Jinja2 filters:
+            environment.filters["split_and_trim"] = split_and_trim
             environment.filters["replace_placeholders_with_actual_values"] = (
                 replace_placeholders_with_actual_values
             )
