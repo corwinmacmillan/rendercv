@@ -10,7 +10,7 @@ _The engine of the [RenderCV App](https://rendercv.com)_
 [![pypi-downloads](<https://img.shields.io/pepy/dt/rendercv?label=PyPI%20downloads&color=rgb(0%2C%2079%2C%20144)>)](https://pypistats.org/packages/rendercv)
 
 </div>
-
+====================================================================================
 ### Changes from main rendercv repo
 
 Since this fork does not change the original library, in order to run the changes, you must run "python -m [rendercv command]".
@@ -21,6 +21,7 @@ This fork makes the following changes to the original rendercv repo:
 - Fixes arbitrary keys in the YAML
 - Removes empty parentheses in the text, so that there is no need for e.g. "no_url" options in the backend.
 
+=======================================================================================
 
 RenderCV engine is a Typst-based Python package with a command-line interface (CLI) that allows you to version-control your CV/resume as source code. It reads a CV written in a YAML file with Markdown syntax, converts it into a [Typst](https://typst.app) code, and generates a PDF.
 
@@ -87,3 +88,4 @@ We are developing a [purpose-built app](https://rendercv.com) for writing CVs an
 ## Contributing
 
 All contributions to RenderCV are welcome! To get started, please read [the developer guide](https://docs.rendercv.com/developer_guide). 
+
