@@ -11,6 +11,7 @@ _The engine of the [RenderCV App](https://rendercv.com)_
 
 </div>
 ====================================================================================
+
 ### Changes from main rendercv repo
 
 Since this fork does not change the original library, in order to run the changes, you must run "python -m [rendercv command]".
@@ -88,4 +89,5 @@ We are developing a [purpose-built app](https://rendercv.com) for writing CVs an
 ## Contributing
 
 All contributions to RenderCV are welcome! To get started, please read [the developer guide](https://docs.rendercv.com/developer_guide). 
+
 
