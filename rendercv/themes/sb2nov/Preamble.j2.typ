@@ -145,7 +145,7 @@
   list(
     ..content,
     marker: design-highlights-bullet,
-    spacing: 0pt,
+    spacing: design-highlights-vertical-space-between-highlights,
     indent: 0pt,
     body-indent: design-highlights-horizontal-space-between-bullet-and-highlights,
   )
