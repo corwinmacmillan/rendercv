@@ -7,6 +7,5 @@ here so that we can invoke the CLI from the command line with `python -m renderc
 from rendercv import cli
 
 if __name__ == "__main__":
-    cli.cli_command_render("/home/panlab/Documents/rendercv/Corwin_MacMillan_CV_ML.yaml")
-    # if hasattr(cli, "app"):
-    #     cli.app()
+    if hasattr(cli, "app"):
+        cli.app()
